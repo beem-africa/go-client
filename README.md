@@ -7,7 +7,7 @@ Go libary to ease the integration with the Beem Africa (SMS, AIRTIME, OTP, 2WAY-
 To start using this in your project
 
 ```bash
-go get -u github.com/beem-africa/go-client
+go get -u github.com/Jkarage/go-client
 ```
 
 ## Authentication
@@ -46,7 +46,7 @@ import (
  "log"
  "os"
 
- "github.com/beem-africa/go-client/sms"
+ "github.com/Jkarage/go-client/sms"
 )
 
 func main() {
@@ -76,7 +76,7 @@ import (
  "log"
  "os"
 
- "github.com/beem-africa/go-client/sms"
+ "github.com/Jkarage/go-client/sms"
 )
 
 func main() {
