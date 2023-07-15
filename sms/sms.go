@@ -13,12 +13,9 @@ func New() *SMSClient {
 	a := os.Getenv("BEEM_SMS_API_KEY")
 	b := os.Getenv("BEEM_SMS_SECRET_KEY")
 
-	authHeader := generateHeader(a, b)
-
 	return &SMSClient{
 		ApiKey:      a,
-		secretKey:   b,
-		authHeader:  authHeader,
+		SecretKey:   b,
 		baseUrl:     "https://apisms.beem.africa/v1/send",
 		ballanceUrl: "https://apisms.beem.africa/public/v1/vendors/balance",
 	}
@@ -65,8 +62,10 @@ func (s *SMSClient) SendSMS(message string, recipients []string, schedule_time s
 			return nil, err
 		}
 
+		authHeader := generateHeader(s.ApiKey, s.SecretKey)
+
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", s.authHeader)
+		req.Header.Set("Authorization", authHeader)
 
 		client := &http.Client{}
 		resp, err = client.Do(req)
@@ -90,8 +89,10 @@ func (s *SMSClient) GetBallance() (*http.Response, error) {
 		return resp, err
 	}
 
+	authHeader := generateHeader(s.ApiKey, s.SecretKey)
+
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", s.authHeader)
+	req.Header.Set("Authorization", authHeader)
 
 	client := &http.Client{}
 	resp, err = client.Do(req)
