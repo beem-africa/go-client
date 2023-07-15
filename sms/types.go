@@ -2,7 +2,7 @@ package sms
 
 type SMSClient struct {
 	ApiKey      string
-	secretKey   string
+	SecretKey   string
 	authHeader  string
 	baseUrl     string
 	ballanceUrl string
