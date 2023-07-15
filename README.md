@@ -14,6 +14,16 @@ go get -u github.com/Jkarage/go-client
 
 To authenticate and usage of the package add your credentials to your environment.
 
+Or
+
+```golang
+
+    client := sms.New()
+    client.Apikey = <Your beem api key>
+    client.SecretKey = <Your beem secret Key>
+    client.SendSMS("Beeming beem with go", []string{"2557135070XX"}, "")
+```
+
 ### For Unix Based Os
 
 ``` bash
@@ -52,7 +62,7 @@ import (
 func main() {
  client := sms.New()
 
- resp, err := client.SendSMS("Hello from Beem and Golang", []string{"255713507067"}, "")
+ resp, err := client.SendSMS("Hello from Beem and Golang", []string{"2557135070XX"}, "")
  if err != nil {
   log.Fatal(err)
  }
