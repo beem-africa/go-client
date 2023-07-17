@@ -121,3 +121,29 @@ func main() {
     }
     io.Copy(os.Stdout, resp.Body)
 ```
+
+## OTP
+
+### Requesting an OTP PIN
+
+``` golang
+    client := beemafrica.NewOTP()
+    resp, err := client.Request("2557135070XX", 12XX)
+    if err != nil {
+    log.Fatal(err)
+    }
+
+    io.Copy(os.Stdout, resp.Body)
+```
+
+### Verifying an OTP PIN
+
+``` golang
+client := beemafrica.NewOTP()
+ resp, err := client.Verify("44bcae75-15ff-4885-915c-6eeba6xxxxx", "57XXXX")
+ if err != nil {
+  log.Fatal(err)
+ }
+
+ io.Copy(os.Stdout, resp.Body)
+```
