@@ -7,7 +7,7 @@ Go libary to ease the integration with the Beem Africa (SMS, AIRTIME, OTP, 2WAY-
 To start using this in your project
 
 ```bash
-go get -u github.com/Jkarage/go-client
+go get -u github.com/Jkarage/beemafrica
 ```
 
 ## Authentication
@@ -17,19 +17,18 @@ To authenticate and usage of the package add your credentials to your environmen
 Or
 
 ```golang
+ sms := beemafrica.NewSMS()
+ sms.ApiKey = "xxxxxx"
+ sms.SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-    client := sms.New()
-    client.Apikey = <Your beem api key>
-    client.SecretKey = <Your beem secret Key>
-    client.SendSMS("Beeming beem with go", []string{"2557135070XX"}, "")
 ```
 
 ### For Unix Based Os
 
 ``` bash
 
-export BEEM_SMS_API_KEY=<your beem api key>
-export BEEM_SMS_SECRET_KEY=<your beem secret key>
+export BEEM_API_KEY=<your beem api key>
+export BEEM_SECRET_KEY=<your beem secret key>
 
 ```
 
@@ -37,8 +36,8 @@ export BEEM_SMS_SECRET_KEY=<your beem secret key>
 
 ```shell
 
-set BEEM_SMS_API_KEY=<your beem api key>
-set BEEM_SMS_SECRET_KEY=<your beem secret key>
+set BEEM_API_KEY=<your beem api key>
+set BEEM_SECRET_KEY=<your beem secret key>
 
 ```
 
@@ -56,18 +55,16 @@ import (
  "log"
  "os"
 
- "github.com/Jkarage/go-client/sms"
+ "github.com/Jkarage/beemafrica"
 )
 
 func main() {
- client := sms.New()
-
- resp, err := client.SendSMS("Hello from Beem and Golang", []string{"2557135070XX"}, "")
+ sms := beemafrica.NewSMS()
+ resp, err := sms.SendSMS("Sample text message", []string{"2557135070XX"}, "")
  if err != nil {
   log.Fatal(err)
  }
-
- _, err = io.Copy(os.Stdout, resp.Body)
+ io.Copy(os.Stdout, resp.Body)
 }
 
 ```
@@ -86,16 +83,41 @@ import (
  "log"
  "os"
 
- "github.com/Jkarage/go-client/sms"
+ "github.com/Jkarage/beemafrica"
 )
 
 func main() {
- client := sms.New()
+ client := beemafrica.NewSMS()
  resp, err := client.GetBallance()
  if err != nil {
   log.Fatal(err)
  }
+ io.Copy(os.Stdout, resp.Body)
 
  io.Copy(os.Stdout, resp.Body)
 }
+```
+
+## AIRTIME
+
+### Sending airtime to a friend
+
+``` golang
+    client := beemafrica.NewAirtime()
+    resp, err := client.Transfer("2557135070XX", 2000, 1234)
+    if err != nil {
+    log.Fatal(err)
+    }
+    io.Copy(os.Stdout, resp.Body)
+```
+
+### Getting airtime ballance
+
+``` golang
+    client := beemafrica.NewAirtime()
+    resp, err := client.GetBallance()
+    if err != nil {
+    log.Fatal(err)
+    }
+    io.Copy(os.Stdout, resp.Body)
 ```

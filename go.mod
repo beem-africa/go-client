@@ -1,3 +1,3 @@
-module github.com/Jkarage/go-client
+module github.com/Jkarage/beemafrica
 
 go 1.20
