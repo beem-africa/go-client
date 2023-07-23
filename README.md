@@ -14,15 +14,6 @@ go get -u github.com/Jkarage/beemafrica
 
 To authenticate and usage of the package add your credentials to your environment.
 
-Or
-
-```golang
- sms := beemafrica.NewSMS()
- sms.ApiKey = "xxxxxx"
- sms.SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-
-```
-
 ### For Unix Based Os
 
 ``` bash
@@ -38,6 +29,15 @@ export BEEM_SECRET_KEY=<your beem secret key>
 
 set BEEM_API_KEY=<your beem api key>
 set BEEM_SECRET_KEY=<your beem secret key>
+
+```
+
+Or
+
+```golang
+ sms := beemafrica.NewSMS()
+ sms.ApiKey = "xxxxxx"
+ sms.SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 ```
 
