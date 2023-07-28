@@ -76,7 +76,7 @@ The package provides an api for requesting the sms ballance in a specific accoun
 ### Usage Example
 
 ``` golang
-    package main
+package main
 
 import (
  "io"
