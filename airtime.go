@@ -23,6 +23,8 @@ func NewAirtime() *AirtimeClient {
 	}
 }
 
+// address is the phone number in format 2557135070XX,followed by the amount.
+// reference is a random number for reference
 func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.Response, error) {
 	body := map[string]interface{}{
 		"dest_addr":    address,
@@ -53,6 +55,7 @@ func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.R
 	return resp, nil
 }
 
+// Returns ballance in your beem account for different services.
 func (a *AirtimeClient) GetBallance() (*http.Response, error) {
 	authHeader := generateHeader(a.ApiKey, a.SecretKey)
 
