@@ -32,7 +32,7 @@ set BEEM_SECRET_KEY=<your beem secret key>
 
 ```
 
-Or
+### OR JUST WRITE THEM PLAINLY(NOT RECOMMENDED)
 
 ```golang
  sms := beemafrica.NewSMS()
