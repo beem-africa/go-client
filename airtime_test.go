@@ -13,20 +13,31 @@ func TestTransfer(t *testing.T) {
 	client.ApiKey = "0aca47adb7050bf3"
 	client.SecretKey = "YTRiYmU4MDdjMmFkOGYwZDhhZmNkZTE0Yzg5OTU1ODA4ODFhY2UwMTcwOWU5YjBkNmU1OGIwOTdjMmEzMmE5Ng=="
 
-	resp, err := client.Transfer("255713507067", 2000, 21312)
-	if err != nil {
-		t.Fatal(err.Error())
+	testCases := []struct {
+		address   string
+		amount    int
+		reference int
+		expected  string
+	}{
+		{"255713507067", 2000, 21312, `{"errors":[{"code":103,"message":"Insufficient balance"}]}`},
+		{"25571350706", 2000, 21312, `{"errors":[{"code":102,"message":"Invalid phone number","args":{"msisdn":"25571350706"}},{"code":103,"message":"Insufficient balance"}]}`},
+		{"255713507067", -2000, 21312, `{"message":"Amount should be greater than 500 and less that 500000"}`},
 	}
 
-	bb, err := io.ReadAll(resp.Body)
-	if err != nil {
-		t.Errorf(err.Error())
-	}
-	obtained := string(bb)
-	expected := `{"errors":[{"code":103,"message":"Insufficient balance"}]}`
+	for _, v := range testCases {
+		resp, err := client.Transfer(v.address, v.amount, v.reference)
+		if err != nil {
+			t.Fatal(err.Error())
+		}
 
-	if expected != obtained {
-		t.Errorf("Failed, expected %s got %s", expected, obtained)
+		bb, err := io.ReadAll(resp.Body)
+		if err != nil {
+			t.Error(err)
+		}
+
+		if string(bb) != v.expected {
+			t.Errorf("failed, got %s, expected %s", string(bb), v.expected)
+		}
 	}
 }
 
