@@ -23,6 +23,9 @@ func NewOTP() *OTPClient {
 	}
 }
 
+// Requires Mobile number in valid international number format with country code.
+// No leading + sign. Example 255713507067.
+// Application ID a number representing your application. Found in OTP Dashboard
 func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
 	body := map[string]interface{}{
 		"appId":  appId,
