@@ -41,6 +41,12 @@ Or
 
 ```
 
+## Run Tests with one command
+
+``` bash
+    go test ./... -v
+```
+
 ## Sending SMS with beemAfrica
 
 You can now send sms to multiple recipients with this package by just adding your credentials to the environment.
