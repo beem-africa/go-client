@@ -9,8 +9,6 @@ import (
 
 func TestSendSMS(t *testing.T) {
 	client := beemafrica.NewSMS()
-	client.ApiKey = "0aca47adb7050bf3"
-	client.SecretKey = "YTRiYmU4MDdjMmFkOGYwZDhhZmNkZTE0Yzg5OTU1ODA4ODFhY2UwMTcwOWU5YjBkNmU1OGIwOTdjMmEzMmE5Ng=="
 
 	testCases := []struct {
 		message  string

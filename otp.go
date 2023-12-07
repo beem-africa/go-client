@@ -7,8 +7,8 @@ import (
 )
 
 type OTPClient struct {
-	ApiKey    string
-	SecretKey string
+	apiKey    string
+	secretKey string
 	baseUrl   string
 	verifyUrl string
 }
@@ -16,8 +16,8 @@ type OTPClient struct {
 func NewOTP() *OTPClient {
 	a, b := populate()
 	return &OTPClient{
-		ApiKey:    a,
-		SecretKey: b,
+		apiKey:    a,
+		secretKey: b,
 		baseUrl:   "https://apiotp.beem.africa/v1/request",
 		verifyUrl: "https://apiotp.beem.africa/v1/verify",
 	}
@@ -41,7 +41,7 @@ func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
 		return nil, err
 	}
 
-	authHeader := generateHeader(o.ApiKey, o.SecretKey)
+	authHeader := generateHeader(o.apiKey, o.secretKey)
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", authHeader)
@@ -71,7 +71,7 @@ func (o *OTPClient) Verify(pinId string, pin string) (*http.Response, error) {
 		return nil, err
 	}
 
-	authHeader := generateHeader(o.ApiKey, o.SecretKey)
+	authHeader := generateHeader(o.apiKey, o.secretKey)
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Authorization", authHeader)
 

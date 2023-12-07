@@ -7,8 +7,8 @@ import (
 )
 
 type AirtimeClient struct {
-	ApiKey      string
-	SecretKey   string
+	apiKey      string
+	secretKey   string
 	baseUrl     string
 	ballanceUrl string
 }
@@ -16,8 +16,8 @@ type AirtimeClient struct {
 func NewAirtime() *AirtimeClient {
 	a, b := populate()
 	return &AirtimeClient{
-		ApiKey:      a,
-		SecretKey:   b,
+		apiKey:      a,
+		secretKey:   b,
 		baseUrl:     "https://apiairtime.beem.africa/v1/transfer",
 		ballanceUrl: "https://apitopup.beem.africa/v1/credit-balance?app_name=AIRTIME",
 	}
@@ -41,7 +41,7 @@ func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	authHeader := generateHeader(a.ApiKey, a.SecretKey)
+	authHeader := generateHeader(a.apiKey, a.secretKey)
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", authHeader)
@@ -57,7 +57,7 @@ func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.R
 
 // Returns ballance in your beem account for different services.
 func (a *AirtimeClient) GetBallance() (*http.Response, error) {
-	authHeader := generateHeader(a.ApiKey, a.SecretKey)
+	authHeader := generateHeader(a.apiKey, a.secretKey)
 
 	req, err := http.NewRequest(http.MethodGet, a.ballanceUrl, nil)
 	if err != nil {

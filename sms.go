@@ -7,8 +7,8 @@ import (
 )
 
 type SMSClient struct {
-	ApiKey      string
-	SecretKey   string
+	apiKey      string
+	secretKey   string
 	baseUrl     string
 	ballanceUrl string
 	senderUrl   string
@@ -18,8 +18,8 @@ func NewSMS() *SMSClient {
 	a, b := populate()
 
 	return &SMSClient{
-		ApiKey:      a,
-		SecretKey:   b,
+		apiKey:      a,
+		secretKey:   b,
 		baseUrl:     "https://apisms.beem.africa/v1/send",
 		ballanceUrl: "https://apisms.beem.africa/public/v1/vendors/balance",
 		senderUrl:   "https://apisms.beem.africa/public/v1/sender-names",
@@ -65,7 +65,7 @@ func (s *SMSClient) SendSMS(message string, recipients []string, schedule_time s
 		if err != nil {
 			return nil, err
 		}
-		authHeader := generateHeader(s.ApiKey, s.SecretKey)
+		authHeader := generateHeader(s.apiKey, s.secretKey)
 
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Authorization", authHeader)
@@ -92,7 +92,7 @@ func (s *SMSClient) GetBallance() (*http.Response, error) {
 		return resp, err
 	}
 
-	authHeader := generateHeader(s.ApiKey, s.SecretKey)
+	authHeader := generateHeader(s.apiKey, s.secretKey)
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", authHeader)
@@ -122,7 +122,7 @@ func (s *SMSClient) RequestSenderID(id, idContent string) (*http.Response, error
 		return nil, err
 	}
 
-	authHeader := generateHeader(s.ApiKey, s.SecretKey)
+	authHeader := generateHeader(s.apiKey, s.secretKey)
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Authorization", authHeader)
 
@@ -137,7 +137,7 @@ func (s *SMSClient) RequestSenderID(id, idContent string) (*http.Response, error
 }
 
 func (s *SMSClient) GetSenderNames() (*http.Response, error) {
-	authHeader := generateHeader(s.ApiKey, s.SecretKey)
+	authHeader := generateHeader(s.apiKey, s.secretKey)
 
 	req, err := http.NewRequest(http.MethodGet, s.senderUrl, nil)
 	if err != nil {

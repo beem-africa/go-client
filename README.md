@@ -14,9 +14,9 @@ go get -u github.com/Jkarage/beemafrica
 
 To authenticate and usage of the package add your credentials to your environment.
 
-### For Unix Based Os
+### For Unix Based
 
-``` bash
+```bash
 
 export BEEM_API_KEY=<your beem api key>
 export BEEM_SECRET_KEY=<your beem secret key>
@@ -29,15 +29,6 @@ export BEEM_SECRET_KEY=<your beem secret key>
 
 set BEEM_API_KEY=<your beem api key>
 set BEEM_SECRET_KEY=<your beem secret key>
-
-```
-
-### OR JUST WRITE THEM PLAINLY(NOT RECOMMENDED)
-
-```golang
- sms := beemafrica.NewSMS()
- sms.ApiKey = "xxxxxx"
- sms.SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 ```
 
@@ -79,7 +70,7 @@ func main() {
 
 The package provides an api for requesting the sms ballance in a specific account.
 
-### Usage Example
+### SMS Usage Example
 
 ``` golang
 package main
