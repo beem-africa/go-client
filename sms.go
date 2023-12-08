@@ -3,6 +3,7 @@ package beemafrica
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -39,6 +40,10 @@ func NewSMS() *SMSClient {
 // For sending now scheduled_time is ""
 func (s *SMSClient) SendSMS(message string, recipients []string, schedule_time string) (*http.Response, error) {
 	var resp *http.Response
+
+	if s.apiKey == "" || s.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
 
 	for i, r := range recipients {
 		// Define the request body
@@ -83,8 +88,11 @@ func (s *SMSClient) SendSMS(message string, recipients []string, schedule_time s
 // GetBallance request for the sms ballance for a particular account
 // If the error is nil, the response of type *http.Response will be returned
 func (s *SMSClient) GetBallance() (*http.Response, error) {
-
 	var resp *http.Response
+
+	if s.apiKey == "" || s.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
 
 	// Create a new request
 	req, err := http.NewRequest(http.MethodGet, s.ballanceUrl, nil)
@@ -107,6 +115,10 @@ func (s *SMSClient) GetBallance() (*http.Response, error) {
 }
 
 func (s *SMSClient) RequestSenderID(id, idContent string) (*http.Response, error) {
+	if s.apiKey == "" || s.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
+
 	body := map[string]string{
 		"senderid":       id,
 		"sample_content": idContent,
@@ -137,6 +149,9 @@ func (s *SMSClient) RequestSenderID(id, idContent string) (*http.Response, error
 }
 
 func (s *SMSClient) GetSenderNames() (*http.Response, error) {
+	if s.apiKey == "" || s.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
 	authHeader := generateHeader(s.apiKey, s.secretKey)
 
 	req, err := http.NewRequest(http.MethodGet, s.senderUrl, nil)

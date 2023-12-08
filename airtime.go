@@ -3,6 +3,7 @@ package beemafrica
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -26,6 +27,11 @@ func NewAirtime() *AirtimeClient {
 // address is the phone number in format 2557135070XX,followed by the amount.
 // reference is a random number for reference
 func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.Response, error) {
+	// checks for empty Apikey and secretkeys
+	if a.apiKey == "" || a.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
+
 	body := map[string]interface{}{
 		"dest_addr":    address,
 		"amount":       amount,
@@ -57,6 +63,10 @@ func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.R
 
 // Returns ballance in your beem account for different services.
 func (a *AirtimeClient) GetBallance() (*http.Response, error) {
+	// checks for empty Apikey and secretkeys
+	if a.apiKey == "" || a.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
 	authHeader := generateHeader(a.apiKey, a.secretKey)
 
 	req, err := http.NewRequest(http.MethodGet, a.ballanceUrl, nil)

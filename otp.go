@@ -3,6 +3,7 @@ package beemafrica
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -27,6 +28,11 @@ func NewOTP() *OTPClient {
 // No leading + sign. Example 255713507067.
 // Application ID a number representing your application. Found in OTP Dashboard
 func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
+	// checks for empty Apikey and secretkeys
+	if o.apiKey == "" || o.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
+
 	body := map[string]interface{}{
 		"appId":  appId,
 		"msisdn": number,
@@ -56,6 +62,11 @@ func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
 }
 
 func (o *OTPClient) Verify(pinId string, pin string) (*http.Response, error) {
+	// checks for empty Apikey and secretkeys
+	if o.apiKey == "" || o.secretKey == "" {
+		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
+	}
+
 	body := map[string]interface{}{
 		"pinId": pinId,
 		"pin":   pin,
