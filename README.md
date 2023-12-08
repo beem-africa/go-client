@@ -1,4 +1,4 @@
-# go-client
+# beemafrica-go-client
 
 Go libary to ease the integration with the Beem Africa (SMS, AIRTIME, OTP, 2WAY-SMS, BPAY, USSD)
 
@@ -7,42 +7,40 @@ Go libary to ease the integration with the Beem Africa (SMS, AIRTIME, OTP, 2WAY-
 To start using this in your project
 
 ```bash
-go get -u github.com/Jkarage/beemafrica@v1.0.1
+# Download this project
+go get  github.com/Jkarage/beemafrica@v1.0.1
 ```
 
 ## Authentication
 
-To authenticate and usage of the package add your credentials to your environment.
+To authenticate and usage of the package add your beemafrica API credentials to your environment.
 
 ### For Unix Based
 
 ```bash
-
+# Add API and Secret Key to your Environment
 export BEEM_API_KEY=<your beem api key>
 export BEEM_SECRET_KEY=<your beem secret key>
-
 ```
 
 ### For Windows
 
-```shell
-
+``` code
+# Add API and Secret Key to your Environment
 set BEEM_API_KEY=<your beem api key>
 set BEEM_SECRET_KEY=<your beem secret key>
-
 ```
 
 ## Run Tests with one command
 
 ``` bash
+    # Run tests
     go test ./... -v
 ```
 
-## Sending SMS with beemAfrica
+## Send sms sample
 
-You can now send sms to multiple recipients with this package by just adding your credentials to the environment.
-
-### Usage Example
+The package wraps the send sms functions within it, now you can use to send the sms.
 
 ``` golang
 package main
@@ -56,17 +54,17 @@ import (
 )
 
 func main() {
- sms := beemafrica.NewSMS()
+// start sms client and send sms with it.
+ client := beemafrica.NewSMS()
  resp, err := sms.SendSMS("Sample text message", []string{"2557135070XX"}, "")
  if err != nil {
   log.Fatal(err)
  }
  io.Copy(os.Stdout, resp.Body)
 }
-
 ```
 
-## Requesting the sms Ballance from beemAfrica
+## Request ballance
 
 The package provides an api for requesting the sms ballance in a specific account.
 
@@ -97,9 +95,18 @@ func main() {
 
 ## AIRTIME
 
-### Sending airtime to a friend
+### Send airtime sample
 
 ``` golang
+package main
+
+import (
+ "io"
+ "log"
+ "os"
+
+ "github.com/Jkarage/beemafrica"
+)
     client := beemafrica.NewAirtime()
     resp, err := client.Transfer("2557135070XX", 2000, 1234)
     if err != nil {
@@ -111,6 +118,15 @@ func main() {
 ### Getting airtime ballance
 
 ``` golang
+package main
+
+import (
+ "io"
+ "log"
+ "os"
+
+ "github.com/Jkarage/beemafrica"
+)
     client := beemafrica.NewAirtime()
     resp, err := client.GetBallance()
     if err != nil {
@@ -124,6 +140,15 @@ func main() {
 ### Requesting an OTP PIN
 
 ``` golang
+    package main
+
+import (
+ "io"
+ "log"
+ "os"
+
+ "github.com/Jkarage/beemafrica"
+)
     client := beemafrica.NewOTP()
     resp, err := client.Request("2557135070XX", 12XX)
     if err != nil {
@@ -136,6 +161,15 @@ func main() {
 ### Verifying an OTP PIN
 
 ``` golang
+package main
+
+import (
+ "io"
+ "log"
+ "os"
+
+ "github.com/Jkarage/beemafrica"
+)
 client := beemafrica.NewOTP()
  resp, err := client.Verify("44bcae75-15ff-4885-915c-6eeba6xxxxx", "57XXXX")
  if err != nil {
