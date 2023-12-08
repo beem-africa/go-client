@@ -7,7 +7,7 @@ Go libary to ease the integration with the Beem Africa (SMS, AIRTIME, OTP, 2WAY-
 To start using this in your project
 
 ```bash
-go get -u github.com/Jkarage/beemafrica
+go get -u github.com/Jkarage/beemafrica@v1.0.1
 ```
 
 ## Authentication
