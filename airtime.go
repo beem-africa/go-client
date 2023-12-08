@@ -24,7 +24,8 @@ func NewAirtime() *AirtimeClient {
 	}
 }
 
-// address is the phone number in format 2557135070XX,followed by the amount.
+// Transfer attempts to transfer amount from your account to another account.
+// address is the phone number in format 2557135070XX,followed by the amount
 // reference is a random number for reference
 func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.Response, error) {
 	// checks for empty Apikey and secretkeys
@@ -61,7 +62,7 @@ func (a *AirtimeClient) Transfer(address string, amount, reference int) (*http.R
 	return resp, nil
 }
 
-// Returns ballance in your beem account for different services.
+// GetBallance retrieves the ballance in your beemafrica account.
 func (a *AirtimeClient) GetBallance() (*http.Response, error) {
 	// checks for empty Apikey and secretkeys
 	if a.apiKey == "" || a.secretKey == "" {

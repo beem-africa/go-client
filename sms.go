@@ -34,10 +34,10 @@ func NewSMS() *SMSClient {
 // 	return fmt.Sprintf("Basic %s", s)
 // }
 
-// SendSMS sends a post request to beemAfrica with appropriate message body
-// It accepts the message, a slice of recipients, and a scheduled time value
-// whose format is  GMT+0 timezone,(yyyy-mm-dd hh:mm).
-// For sending now scheduled_time is ""
+// SendSMS sends request to beemafrica to send a message, with given details.
+// the message, a slice of recipients, and a scheduled time value.
+// time format is  GMT+0 timezone,(yyyy-mm-dd hh:mm).
+// send now scheduled_time is ""
 func (s *SMSClient) SendSMS(message string, recipients []string, schedule_time string) (*http.Response, error) {
 	var resp *http.Response
 
@@ -114,6 +114,8 @@ func (s *SMSClient) GetBallance() (*http.Response, error) {
 	return resp, nil
 }
 
+// RequestSenderID queues a request to beem for a specific senderid.
+// Response will be obtained, later through mail.
 func (s *SMSClient) RequestSenderID(id, idContent string) (*http.Response, error) {
 	if s.apiKey == "" || s.secretKey == "" {
 		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
@@ -148,6 +150,7 @@ func (s *SMSClient) RequestSenderID(id, idContent string) (*http.Response, error
 	return resp, nil
 }
 
+// GetSenderNames retrieves sendernames available in your account.
 func (s *SMSClient) GetSenderNames() (*http.Response, error) {
 	if s.apiKey == "" || s.secretKey == "" {
 		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
