@@ -24,9 +24,9 @@ func NewOTP() *OTPClient {
 	}
 }
 
+// Request generates a random OTP and sends it to the provided phone number,application id.
 // Requires Mobile number in valid international number format with country code.
-// No leading + sign. Example 255713507067.
-// Application ID a number representing your application. Found in OTP Dashboard
+// No leading + sign. Example 255713507067. appid is found in beem dashboard.
 func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
 	// checks for empty Apikey and secretkeys
 	if o.apiKey == "" || o.secretKey == "" {
@@ -61,6 +61,8 @@ func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
 	return resp, nil
 }
 
+// Verify checks to see if the provided OTP matches the pinId provided.
+// Returns a Valid 200 OK Response, In Both cases. Look into data for Valid or Invalid OTP
 func (o *OTPClient) Verify(pinId string, otp string) (*http.Response, error) {
 	// checks for empty Apikey and secretkeys
 	if o.apiKey == "" || o.secretKey == "" {
