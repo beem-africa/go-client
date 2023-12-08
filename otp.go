@@ -61,7 +61,7 @@ func (o *OTPClient) Request(number string, appId int) (*http.Response, error) {
 	return resp, nil
 }
 
-func (o *OTPClient) Verify(pinId string, pin string) (*http.Response, error) {
+func (o *OTPClient) Verify(pinId string, otp string) (*http.Response, error) {
 	// checks for empty Apikey and secretkeys
 	if o.apiKey == "" || o.secretKey == "" {
 		return nil, fmt.Errorf("failed to load accounts apikey or secretkey")
@@ -69,7 +69,7 @@ func (o *OTPClient) Verify(pinId string, pin string) (*http.Response, error) {
 
 	body := map[string]interface{}{
 		"pinId": pinId,
-		"pin":   pin,
+		"pin":   otp,
 	}
 
 	bb, err := json.Marshal(body)
